@@ -9,15 +9,20 @@ if (!API_KEY) {
 
 const genAI = new GoogleGenerativeAI(API_KEY)
 
+interface ChatMessage {
+  role: string;
+  content: string;
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const { messages, diagnosis } = await req.json()
+    const { messages, diagnosis } = await req.json() as { messages: ChatMessage[], diagnosis: string }
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" })
 
     const chat = model.startChat({
-      history: messages.map(msg => ({
-        role: msg.role,
+      history: messages.map((msg: ChatMessage) => ({
+        role: msg.role === 'assistant' ? 'model' : msg.role,
         parts: [{ text: msg.content }],
       })),
       generationConfig: {

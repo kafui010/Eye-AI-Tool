@@ -7,14 +7,6 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 
-interface DiagnosisResultProps {
-  diagnosis: string; // Add type annotation for diagnosis
-  uploadedImage: any;
-  isLoading: boolean;
-  onRegenerate: () => void;
-  onBack: () => void;
-}
-
 export function DiagnosisResult({ diagnosis, uploadedImage, isLoading, onRegenerate, onBack }) {
   const [showViewBreakdown, setShowViewBreakdown] = useState(false)
   const [showChatInterface, setShowChatInterface] = useState(false)
